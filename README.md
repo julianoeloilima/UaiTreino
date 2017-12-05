@@ -5,4 +5,5 @@ Turma:
 
 - Elifazio 
 - Joao Paulo
+- Juliano Elói
 
