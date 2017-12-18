@@ -22,10 +22,10 @@ enum LocalPhotos {
         var longitude : Double
     }
     struct Response {
-        var photos : [PhotoDTO]
+        var photos : [(photo: PhotoDTO, friend: UserDTO)]
     }
     struct ViewModel {
-        var photos : [PhotoDTO]
+        var photos : [(photo: PhotoDTO, friend: UserDTO)]
     }
   }
 

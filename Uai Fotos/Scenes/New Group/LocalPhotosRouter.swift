@@ -12,60 +12,28 @@
 
 import UIKit
 
-@objc protocol LocalPhotosRoutingLogic {
-//    func navigateToMainScreen(value: Int)
-    
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+protocol LocalPhotosRoutingLogic {
+    func navigateToPhotoDetail(values: (photo: PhotoDTO, friend: UserDTO))
 }
 
 protocol LocalPhotosDataPassing {
 }
 
 class LocalPhotosRouter: NSObject, LocalPhotosRoutingLogic, LocalPhotosDataPassing {
-  weak var viewController: LocalPhotosViewController?
-  
-  var dataStore: LocalPhotosDataStore?
-  
-//    var value: Int?
-//
-//    func navigateToMainScreen(value: Int) {
-//        self.value = value
-//        self.viewController?.performSegue(withIdentifier: "Banana", sender: nil)
-//    }
-//
-//
-//    @objc func routeToBananaWithSegue(_ segue: UIStoryboardSegue?) {
-//        if let dest = segue?.destination as? UIViewController {
-//            dest.xpto = value
-//        }
-//    }
     
+    weak var viewController: LocalPhotosViewController?
+    var dataStore: LocalPhotosDataStore?
     
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?) {
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: LocalPhotosViewController, destination: SomewhereViewController) {
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: LocalPhotosDataStore, destination: inout SomewhereDataStore) {
-  //  destination.name = source.name
-  //}
+    var values: (photo: PhotoDTO, friend: UserDTO)?
+    
+    func navigateToPhotoDetail(values: (photo: PhotoDTO, friend: UserDTO)) {
+        self.values = values
+        viewController?.performSegue(withIdentifier: "PhotoDetail", sender: nil)
+    }
+    
+    @objc func routeToPhotoDetailWithSegue(_ segue: UIStoryboardSegue?) {
+        if let dest = segue?.destination as? ActivityDetailTableViewController, let values = values {
+            dest.activityDetail = values
+        }
+    }
 }

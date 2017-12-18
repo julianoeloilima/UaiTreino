@@ -17,11 +17,11 @@ protocol LocalPhotosBusinessLogic {
 }
 
 protocol LocalPhotosDataStore {
-
+    var photoDetail: (photo: PhotoDTO, friend: UserDTO)? { get set }
 }
 
 class LocalPhotosInteractor: LocalPhotosBusinessLogic, LocalPhotosDataStore {
-    
+    var photoDetail: (photo: PhotoDTO, friend: UserDTO)?
     var presenter: LocalPhotosPresentationLogic?
     var worker: LocalPhotosWorker?
 

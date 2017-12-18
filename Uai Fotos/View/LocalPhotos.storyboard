@@ -120,11 +120,20 @@
                         <outlet property="collectionViewHeightConstraint" destination="QcH-vO-jZA" id="gcR-9T-Gcd"/>
                         <outlet property="localPhotosCollection" destination="ahQ-9C-VPq" id="Bcw-za-w8l"/>
                         <outlet property="mapView" destination="nu6-xm-lZo" id="eiR-Q2-f1l"/>
+                        <segue destination="v0Z-9d-RIp" kind="show" identifier="PhotoDetail" id="AdD-nA-cza"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gUx-jk-sca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-731.25" y="-307.5"/>
+        </scene>
+        <!--activityDetailTableViewController-->
+        <scene sceneID="v8J-Fb-sPF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Heart" referencedIdentifier="activityDetailTableViewController" id="v0Z-9d-RIp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s7K-rF-5sv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-80" y="-308"/>
         </scene>
     </scenes>
 </document>

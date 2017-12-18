@@ -15,8 +15,18 @@ import MapKit
 
 class LocalPhotosWorker {
 
-    func getPhotosByLocation(latitude : Double, longitude : Double) -> [PhotoDTO] {
+    func getPhotosByLocation(latitude : Double, longitude : Double) -> [(photo: PhotoDTO, friend: UserDTO)] {
         let qtPhotos = Int(arc4random_uniform(90))
-        return UaiFotosDataStore().generatePhotos(number: qtPhotos)
+//        return UaiFotosDataStore().generatePhotos(number: qtPhotos)
+        let users = UaiFotosDataStore().generateUsers(number: qtPhotos)
+        let photos = UaiFotosDataStore().generatePhotos(number: qtPhotos)
+        var result = [(photo: PhotoDTO, friend: UserDTO)]()
+        
+        for i in 0 ..< qtPhotos {
+            result.append((photo: photos[i], friend: users[i]))
+        }
+        
+        return result
+
     }
 }

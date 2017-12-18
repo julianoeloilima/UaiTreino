@@ -28,7 +28,7 @@ class LocalPhotosViewController: UIViewController, LocalPhotosDisplayLogic {
     // constraint de altura da collection para ser alterada de acordo com o contentsize.height
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
-    lazy var photosOfLocation = [PhotoDTO]()
+    lazy var photosOfLocation = [(photo: PhotoDTO, friend: UserDTO)]()
     var location: LocationDTO?
     
     
@@ -87,19 +87,7 @@ class LocalPhotosViewController: UIViewController, LocalPhotosDisplayLogic {
         
         getPhotosByLocation()
         
-  //      self.navigationItem.titleView
-//        self.navigationItem.titleView = self.titleNavigationBar
-//        let btnSearch = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.search, target: self, action: nil)
-//        btnSearch.tintColor = UIColor.white
-        //let btnAdd = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: nil)
-        //btnAdd.tintColor = UIColor.blue
-        //btnAdd.image = #imageLiteral(resourceName: "paper_plane")
-        
-        
         self.title = self.location?.city
-        
-        //self.navigationItem.setRightBarButtonItems([btnAdd], animated: false)
-        //self.navigationItem.titleView
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -148,10 +136,10 @@ extension LocalPhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCell
-
-        let photoUrl = self.photosOfLocation[indexPath.row].imageUrl
+        let photoUrl = self.photosOfLocation[indexPath.row].photo.imageUrl
         cell.photoImage.kf.indicatorType = .activity
         cell.photoImage.kf.setImage(with: photoUrl)
+        cell.delegate = self
         return cell
     }
     
@@ -170,11 +158,31 @@ extension LocalPhotosViewController: UICollectionViewDataSource {
         }
     }
     
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        collectionView.deselectItem(at: indexPath, animated: false)
+        
+        let item  = self.photosOfLocation[indexPath.row]
+//        let values = (photo: item, friend: UserDTO(name: nil, title: nil, email: nil, avatar: nil, photos: nil, friends: nil, website: nil, gender: nil, phone: nil, birthday: nil))
+        
+        router?.navigateToPhotoDetail(values: item)
+        
+    }
+    
 }
 
 extension LocalPhotosViewController: UICollectionViewDelegate {
     
     
+}
+
+extension LocalPhotosViewController : PhotoCellDelegate {
+    
+    func feedPhotoCell(_ photoCell: PhotoCell, imageTap image: UIImageView) {
+//        router?.navigateToPhotoDetail(values: <#T##(photo: PhotoDTO, friend: UserDTO)#>)
+    }
+
 }
 
 extension LocalPhotosViewController: UICollectionViewDelegateFlowLayout {
